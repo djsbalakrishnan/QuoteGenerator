@@ -148,86 +148,254 @@ def create_quote_image(quote_data, width=1080, height=1350, output_filename='quo
     print(f"Created quote image with better spacing as '{output_filename}'")
     return img
 
+
 # Example usage
 if __name__ == "__main__":
     # Sample input data
-    quotes_data = [
+    quotes_data = quotes_data = quotes_data = [
         {
             "content": [
-                {
-                    "text": "Price is what",
-                    "style": "normal"
-                },
-                {
-                    "text": "you pay.",
-                    "style": "italic"
-                },
-                {
-                    "text": "Value is what",
-                    "style": "normal"
-                },
-                {
-                    "text": "you get.",
-                    "style": "italic"
-                }
+                {"text": "Price is", "style": "normal"},
+                {"text": "what you", "style": "italic"},
+                {"text": "pay.", "style": "italic"},
+                {"text": "Value is", "style": "normal"},
+                {"text": "what you", "style": "italic"},
+                {"text": "get.", "style": "italic"}
             ],
-            "author": "Warren Buffett"
+            "author": "WARREN BUFFETT"
         },
         {
             "content": [
-                {
-                    "text": "Patience",
-                    "style": "normal"
-                },
-                {
-                    "text": "creates wealth.",
-                    "style": "italic"
-                }
+                {"text": "Patience", "style": "normal"},
+                {"text": "creates", "style": "italic"},
+                {"text": "wealth.", "style": "italic"}
             ],
-            "author": "Charlie Munger"
+            "author": "CHARLIE MUNGER"
         },
         {
             "content": [
-                {
-                    "text": "Know what you own,",
-                    "style": "normal"
-                },
-                {
-                    "text": "and know",
-                    "style": "italic"
-                },
-                {
-                    "text": "why you own it.",
-                    "style": "normal"
-                }
+                {"text": "Know", "style": "normal"},
+                {"text": "what you", "style": "italic"},
+                {"text": "own.", "style": "italic"}
             ],
-            "author": "Peter Lynch"
+            "author": "PETER LYNCH"
         },
         {
             "content": [
-                {
-                    "text": "Margin",
-                    "style": "normal"
-                },
-                {
-                    "text": "of safety.",
-                    "style": "italic"
-                }
+                {"text": "Margin", "style": "normal"},
+                {"text": "of safety.", "style": "italic"}
             ],
-            "author": "Benjamin Graham"
+            "author": "BENJAMIN GRAHAM"
         },
         {
             "content": [
-                {
-                    "text": "Avoid",
-                    "style": "normal"
-                },
-                {
-                    "text": "popular assets.",
-                    "style": "italic"
-                }
+                {"text": "Avoid", "style": "normal"},
+                {"text": "popular", "style": "italic"},
+                {"text": "assets.", "style": "italic"}
             ],
-            "author": "Howard Marks"
+            "author": "HOWARD MARKS"
+        },
+        {
+            "content": [
+                {"text": "Be fearful", "style": "normal"},
+                {"text": "when others", "style": "italic"},
+                {"text": "are greedy.", "style": "italic"}
+            ],
+            "author": "WARREN BUFFETT"
+        },
+        {
+            "content": [
+                {"text": "Never", "style": "normal"},
+                {"text": "interrupt", "style": "italic"},
+                {"text": "compounding.", "style": "italic"}
+            ],
+            "author": "CHARLIE MUNGER"
+        },
+        {
+            "content": [
+                {"text": "Costs", "style": "normal"},
+                {"text": "matter.", "style": "italic"}
+            ],
+            "author": "JOHN BOGLE"
+        },
+        {
+            "content": [
+                {"text": "Risk is", "style": "normal"},
+                {"text": "not", "style": "italic"},
+                {"text": "volatility.", "style": "italic"}
+            ],
+            "author": "SETH KLARMAN"
+        },
+        {
+            "content": [
+                {"text": "Stocks aren't", "style": "normal"},
+                {"text": "lottery", "style": "italic"},
+                {"text": "tickets.", "style": "italic"}
+            ],
+            "author": "PETER LYNCH"
+        },
+        {
+            "content": [
+                {"text": "Time", "style": "normal"},
+                {"text": "is the", "style": "italic"},
+                {"text": "friend.", "style": "italic"}
+            ],
+            "author": "WARREN BUFFETT"
+        },
+        {
+            "content": [
+                {"text": "Heads I", "style": "normal"},
+                {"text": "win,", "style": "italic"},
+                {"text": "tails I", "style": "normal"},
+                {"text": "don't lose.", "style": "italic"}
+            ],
+            "author": "MOHNISH PABRAI"
+        },
+        {
+            "content": [
+                {"text": "Price", "style": "normal"},
+                {"text": "fluctuations", "style": "italic"},
+                {"text": "are your", "style": "italic"},
+                {"text": "friend.", "style": "italic"}
+            ],
+            "author": "BENJAMIN GRAHAM"
+        },
+        {
+            "content": [
+                {"text": "Buy good", "style": "normal"},
+                {"text": "businesses", "style": "italic"},
+                {"text": "cheap.", "style": "italic"}
+            ],
+            "author": "JOEL GREENBLATT"
+        },
+        {
+            "content": [
+                {"text": "Invert,", "style": "normal"},
+                {"text": "always", "style": "italic"},
+                {"text": "invert.", "style": "italic"}
+            ],
+            "author": "CHARLIE MUNGER"
+        },
+        {
+            "content": [
+                {"text": "You can't", "style": "normal"},
+                {"text": "predict.", "style": "italic"},
+                {"text": "Prepare.", "style": "italic"}
+            ],
+            "author": "HOWARD MARKS"
+        },
+        {
+            "content": [
+                {"text": "Growth and", "style": "normal"},
+                {"text": "value,", "style": "italic"},
+                {"text": "not versus.", "style": "italic"}
+            ],
+            "author": "ASWATH DAMODARAN"
+        },
+        {
+            "content": [
+                {"text": "Scuttlebutt", "style": "normal"},
+                {"text": "beats", "style": "italic"},
+                {"text": "statistics.", "style": "italic"}
+            ],
+            "author": "PHILIP FISHER"
+        },
+        {
+            "content": [
+                {"text": "Circle", "style": "normal"},
+                {"text": "of competence.", "style": "italic"}
+            ],
+            "author": "WARREN BUFFETT"
+        },
+        {
+            "content": [
+                {"text": "Diversify.", "style": "normal"},
+                {"text": "Be patient.", "style": "italic"},
+                {"text": "Keep costs", "style": "italic"},
+                {"text": "low.", "style": "italic"}
+            ],
+            "author": "WALTER SCHLOSS"
+        },
+        {
+            "content": [
+                {"text": "Clone", "style": "normal"},
+                {"text": "smart investors", "style": "italic"},
+                {"text": "wisely.", "style": "italic"}
+            ],
+            "author": "GUY SPIER"
+        },
+        {
+            "content": [
+                {"text": "Opportunity", "style": "normal"},
+                {"text": "lies where", "style": "italic"},
+                {"text": "others fear.", "style": "italic"}
+            ],
+            "author": "SETH KLARMAN"
+        },
+        {
+            "content": [
+                {"text": "Buy at", "style": "normal"},
+                {"text": "maximum", "style": "italic"},
+                {"text": "pessimism.", "style": "italic"}
+            ],
+            "author": "JOHN TEMPLETON"
+        },
+        {
+            "content": [
+                {"text": "Bad news", "style": "normal"},
+                {"text": "creates", "style": "italic"},
+                {"text": "bargains.", "style": "italic"}
+            ],
+            "author": "CHRISTOPHER BROWNE"
+        },
+        {
+            "content": [
+                {"text": "Few bets,", "style": "normal"},
+                {"text": "big bets,", "style": "italic"},
+                {"text": "infrequent bets.", "style": "italic"}
+            ],
+            "author": "MONISH PABRAI"
+        },
+        {
+            "content": [
+                {"text": "Value", "style": "normal"},
+                {"text": "hides in", "style": "italic"},
+                {"text": "plain sight.", "style": "italic"}
+            ],
+            "author": "BILL MILLER"
+        },
+        {
+            "content": [
+                {"text": "Avoid", "style": "normal"},
+                {"text": "permanent", "style": "italic"},
+                {"text": "capital loss.", "style": "italic"}
+            ],
+            "author": "JEAN-MARIE EVEILLARD"
+        },
+        {
+            "content": [
+                {"text": "Patience", "style": "normal"},
+                {"text": "is the", "style": "italic"},
+                {"text": "key.", "style": "italic"}
+            ],
+            "author": "IRVING KAHN"
+        },
+        {
+            "content": [
+                {"text": "Know a", "style": "normal"},
+                {"text": "few businesses", "style": "italic"},
+                {"text": "exceptionally well.", "style": "italic"}
+            ],
+            "author": "GLENN GREENBERG"
+        },
+        {
+            "content": [
+                {"text": "Buy.", "style": "normal"},
+                {"text": "Hold.", "style": "italic"},
+                {"text": "And buy", "style": "italic"},
+                {"text": "more.", "style": "italic"}
+            ],
+            "author": "SHELBY DAVIS"
         }
     ]
 
@@ -235,6 +403,6 @@ if __name__ == "__main__":
     # Create the image
     i = 0
     for quote_data in quotes_data:
-        file_name = f'quote_image_{i}.png'
+        file_name = f'posts/quote_image_{i}.png'
         create_quote_image(quote_data, output_filename=file_name)
         i += 1
