@@ -152,256 +152,582 @@ def create_quote_image(quote_data, width=1080, height=1350, output_filename='quo
 # Example usage
 if __name__ == "__main__":
     # Sample input data
-    quotes_data = quotes_data = quotes_data = [
+    quotes_data = [
         {
             "content": [
-                {"text": "Price is", "style": "normal"},
-                {"text": "what you", "style": "italic"},
-                {"text": "pay.", "style": "italic"},
-                {"text": "Value is", "style": "normal"},
-                {"text": "what you", "style": "italic"},
-                {"text": "get.", "style": "italic"}
+                {
+                    "text": "Be fearful when",
+                    "style": "normal"
+                },
+                {
+                    "text": "others are greedy",
+                    "style": "italic"
+                },
+                {
+                    "text": "and greedy when",
+                    "style": "normal"
+                },
+                {
+                    "text": "others are fearful",
+                    "style": "italic"
+                }
             ],
             "author": "WARREN BUFFETT"
         },
         {
             "content": [
-                {"text": "Patience", "style": "normal"},
-                {"text": "creates", "style": "italic"},
-                {"text": "wealth.", "style": "italic"}
+                {
+                    "text": "Rule No1: Never",
+                    "style": "normal"
+                },
+                {
+                    "text": "lose money",
+                    "style": "italic"
+                },
+                {
+                    "text": " Rule No2: Never",
+                    "style": "normal"
+                },
+                {
+                    "text": "forget Rule No1",
+                    "style": "italic"
+                }
             ],
-            "author": "CHARLIE MUNGER"
+            "author": "WARREN BUFFETT"
         },
         {
             "content": [
-                {"text": "Know", "style": "normal"},
-                {"text": "what you", "style": "italic"},
-                {"text": "own.", "style": "italic"}
+                {
+                    "text": "Someone's sitting in",
+                    "style": "normal"
+                },
+                {
+                    "text": "the shade today",
+                    "style": "italic"
+                },
+                {
+                    "text": "because someone planted",
+                    "style": "normal"
+                },
+                {
+                    "text": "a tree a",
+                    "style": "italic"
+                },
+                {
+                    "text": "long time ago",
+                    "style": "normal"
+                }
+            ],
+            "author": "WARREN BUFFETT"
+        },
+        {
+            "content": [
+                {
+                    "text": "Buy wonderful companies",
+                    "style": "normal"
+                },
+                {
+                    "text": "at fair prices",
+                    "style": "italic"
+                },
+                {
+                    "text": "not fair companies",
+                    "style": "normal"
+                },
+                {
+                    "text": "at wonderful prices",
+                    "style": "italic"
+                }
+            ],
+            "author": "WARREN BUFFETT"
+        },
+        {
+            "content": [
+                {
+                    "text": "If past performance",
+                    "style": "normal"
+                },
+                {
+                    "text": "alone made you rich",
+                    "style": "italic"
+                },
+                {
+                    "text": "librarians would",
+                    "style": "normal"
+                },
+                {
+                    "text": "be the richest",
+                    "style": "italic"
+                },
+                {
+                    "text": "people",
+                    "style": "normal"
+                }
+            ],
+            "author": "WARREN BUFFETT"
+        },
+        {
+            "content": [
+                {
+                    "text": "Diversification is",
+                    "style": "normal"
+                },
+                {
+                    "text": "protection against ignorance;",
+                    "style": "italic"
+                },
+                {
+                    "text": "it makes little sense",
+                    "style": "normal"
+                },
+                {
+                    "text": "if you know",
+                    "style": "italic"
+                },
+                {
+                    "text": "what you are doing",
+                    "style": "normal"
+                }
+            ],
+            "author": "WARREN BUFFETT"
+        },
+        {
+            "content": [
+                {
+                    "text": "Wall Street is the",
+                    "style": "normal"
+                },
+                {
+                    "text": "only place where",
+                    "style": "italic"
+                },
+                {
+                    "text": "people ride in Rolls-Royces",
+                    "style": "normal"
+                },
+                {
+                    "text": "to get advice from",
+                    "style": "italic"
+                },
+                {
+                    "text": "those who take subway",
+                    "style": "italic"
+                }
+            ],
+            "author": "WARREN BUFFETT"
+        },
+        {
+            "content": [
+                {
+                    "text": "When it rains gold,",
+                    "style": "normal"
+                },
+                {
+                    "text": "use a bucket,",
+                    "style": "italic"
+                },
+                {
+                    "text": "not a thimble",
+                    "style": "normal"
+                }
+            ],
+            "author": "WARREN BUFFETT"
+        },
+        {
+            "content": [
+                {
+                    "text": "Why jump seven-foot",
+                    "style": "normal"
+                },
+                {
+                    "text": "bars when you",
+                    "style": "italic"
+                },
+                {
+                    "text": "can step over",
+                    "style": "normal"
+                },
+                {
+                    "text": "one-foot bars?",
+                    "style": "italic"
+                }
+            ],
+            "author": "WARREN BUFFETT"
+        },
+        {
+            "content": [
+                {
+                    "text": "The stock market",
+                    "style": "normal"
+                },
+                {
+                    "text": "transfers money from",
+                    "style": "italic"
+                },
+                {
+                    "text": "the impatient to",
+                    "style": "normal"
+                },
+                {
+                    "text": "the patient",
+                    "style": "italic"
+                }
+            ],
+            "author": "WARREN BUFFETT"
+        },
+        {
+            "content": [
+                {
+                    "text": "Investing without research",
+                    "style": "normal"
+                },
+                {
+                    "text": "is like playing",
+                    "style": "italic"
+                },
+                {
+                    "text": "poker and never",
+                    "style": "normal"
+                },
+                {
+                    "text": "looking at the cards",
+                    "style": "italic"
+                }
             ],
             "author": "PETER LYNCH"
         },
         {
             "content": [
-                {"text": "Margin", "style": "normal"},
-                {"text": "of safety.", "style": "italic"}
+                {
+                    "text": "Even a good",
+                    "style": "normal"
+                },
+                {
+                    "text": "investor is right",
+                    "style": "italic"
+                },
+                {
+                    "text": "only 6 times",
+                    "style": "normal"
+                },
+                {
+                    "text": "out of 10",
+                    "style": "italic"
+                }
             ],
-            "author": "BENJAMIN GRAHAM"
+            "author": "PETER LYNCH"
         },
         {
             "content": [
-                {"text": "Avoid", "style": "normal"},
-                {"text": "popular", "style": "italic"},
-                {"text": "assets.", "style": "italic"}
+                {
+                    "text": "He who lives",
+                    "style": "normal"
+                },
+                {
+                    "text": "by the crystal",
+                    "style": "italic"
+                },
+                {
+                    "text": "ball will eat",
+                    "style": "normal"
+                },
+                {
+                    "text": "shattered glass",
+                    "style": "italic"
+                }
             ],
-            "author": "HOWARD MARKS"
+            "author": "RAY DALIO"
         },
         {
             "content": [
-                {"text": "Be fearful", "style": "normal"},
-                {"text": "when others", "style": "italic"},
-                {"text": "are greedy.", "style": "italic"}
+                {
+                    "text": "If you don\u2019t",
+                    "style": "normal"
+                },
+                {
+                    "text": "own gold you",
+                    "style": "italic"
+                },
+                {
+                    "text": "know neither history",
+                    "style": "normal"
+                },
+                {
+                    "text": "nor economics",
+                    "style": "italic"
+                }
             ],
-            "author": "WARREN BUFFETT"
+            "author": "RAY DALIO"
         },
         {
             "content": [
-                {"text": "Never", "style": "normal"},
-                {"text": "interrupt", "style": "italic"},
-                {"text": "compounding.", "style": "italic"}
+                {
+                    "text": "Pain + Reflection",
+                    "style": "normal"
+                },
+                {
+                    "text": "= Progress",
+                    "style": "italic"
+                }
+            ],
+            "author": "RAY DALIO"
+        },
+        {
+            "content": [
+                {
+                    "text": "The big money",
+                    "style": "normal"
+                },
+                {
+                    "text": "is not in",
+                    "style": "italic"
+                },
+                {
+                    "text": "the buying or",
+                    "style": "normal"
+                },
+                {
+                    "text": "selling but in",
+                    "style": "italic"
+                },
+                {
+                    "text": "the waiting",
+                    "style": "normal"
+                }
             ],
             "author": "CHARLIE MUNGER"
         },
         {
             "content": [
-                {"text": "Costs", "style": "normal"},
-                {"text": "matter.", "style": "italic"}
+                {
+                    "text": "Those who keep",
+                    "style": "normal"
+                },
+                {
+                    "text": "learning will keep",
+                    "style": "italic"
+                },
+                {
+                    "text": "rising in life",
+                    "style": "normal"
+                }
+            ],
+            "author": "CHARLIE MUNGER"
+        },
+        {
+            "content": [
+                {
+                    "text": "Go to bed",
+                    "style": "normal"
+                },
+                {
+                    "text": "smarter than when",
+                    "style": "italic"
+                },
+                {
+                    "text": "you woke up",
+                    "style": "normal"
+                }
+            ],
+            "author": "CHARLIE MUNGER"
+        },
+        {
+            "content": [
+                {
+                    "text": "Markets can stay",
+                    "style": "normal"
+                },
+                {
+                    "text": "irrational longer than",
+                    "style": "italic"
+                },
+                {
+                    "text": "you can stay",
+                    "style": "normal"
+                },
+                {
+                    "text": "solvent",
+                    "style": "italic"
+                }
+            ],
+            "author": "JOHN MAYNARD KEYNES"
+        },
+        {
+            "content": [
+                {
+                    "text": "The biggest investment",
+                    "style": "normal"
+                },
+                {
+                    "text": "mistakes come not",
+                    "style": "italic"
+                },
+                {
+                    "text": "from what we",
+                    "style": "normal"
+                },
+                {
+                    "text": "know but from",
+                    "style": "italic"
+                },
+                {
+                    "text": "how we behave",
+                    "style": "normal"
+                }
+            ],
+            "author": "HOWARD MARKS"
+        },
+        {
+            "content": [
+                {
+                    "text": "There are old investors",
+                    "style": "normal"
+                },
+                {
+                    "text": "and there are",
+                    "style": "italic"
+                },
+                {
+                    "text": "bold investors",
+                    "style": "normal"
+                },
+                {
+                    "text": "but there are",
+                    "style": "italic"
+                },
+                {
+                    "text": "no old bold investors",
+                    "style": "normal"
+                }
+            ],
+            "author": "HOWARD MARKS"
+        },
+        {
+            "content": [
+                {
+                    "text": "Don\u2019t look for",
+                    "style": "normal"
+                },
+                {
+                    "text": "the needle in",
+                    "style": "italic"
+                },
+                {
+                    "text": "the haystack Just",
+                    "style": "normal"
+                },
+                {
+                    "text": "buy the haystack!",
+                    "style": "italic"
+                }
             ],
             "author": "JOHN BOGLE"
         },
         {
             "content": [
-                {"text": "Risk is", "style": "normal"},
-                {"text": "not", "style": "italic"},
-                {"text": "volatility.", "style": "italic"}
+                {
+                    "text": "Act like an",
+                    "style": "normal"
+                },
+                {
+                    "text": "investor not a",
+                    "style": "italic"
+                },
+                {
+                    "text": "speculator",
+                    "style": "normal"
+                }
             ],
-            "author": "SETH KLARMAN"
+            "author": "BEN GRAHAM"
         },
         {
             "content": [
-                {"text": "Stocks aren't", "style": "normal"},
-                {"text": "lottery", "style": "italic"},
-                {"text": "tickets.", "style": "italic"}
+                {
+                    "text": "In investing what",
+                    "style": "normal"
+                },
+                {
+                    "text": "is comfortable is",
+                    "style": "italic"
+                },
+                {
+                    "text": "rarely profitable",
+                    "style": "normal"
+                }
             ],
-            "author": "PETER LYNCH"
+            "author": "ROBERT ARNOTT"
         },
         {
             "content": [
-                {"text": "Time", "style": "normal"},
-                {"text": "is the", "style": "italic"},
-                {"text": "friend.", "style": "italic"}
-            ],
-            "author": "WARREN BUFFETT"
-        },
-        {
-            "content": [
-                {"text": "Heads I", "style": "normal"},
-                {"text": "win,", "style": "italic"},
-                {"text": "tails I", "style": "normal"},
-                {"text": "don't lose.", "style": "italic"}
-            ],
-            "author": "MOHNISH PABRAI"
-        },
-        {
-            "content": [
-                {"text": "Price", "style": "normal"},
-                {"text": "fluctuations", "style": "italic"},
-                {"text": "are your", "style": "italic"},
-                {"text": "friend.", "style": "italic"}
-            ],
-            "author": "BENJAMIN GRAHAM"
-        },
-        {
-            "content": [
-                {"text": "Buy good", "style": "normal"},
-                {"text": "businesses", "style": "italic"},
-                {"text": "cheap.", "style": "italic"}
-            ],
-            "author": "JOEL GREENBLATT"
-        },
-        {
-            "content": [
-                {"text": "Invert,", "style": "normal"},
-                {"text": "always", "style": "italic"},
-                {"text": "invert.", "style": "italic"}
-            ],
-            "author": "CHARLIE MUNGER"
-        },
-        {
-            "content": [
-                {"text": "You can't", "style": "normal"},
-                {"text": "predict.", "style": "italic"},
-                {"text": "Prepare.", "style": "italic"}
-            ],
-            "author": "HOWARD MARKS"
-        },
-        {
-            "content": [
-                {"text": "Growth and", "style": "normal"},
-                {"text": "value,", "style": "italic"},
-                {"text": "not versus.", "style": "italic"}
-            ],
-            "author": "ASWATH DAMODARAN"
-        },
-        {
-            "content": [
-                {"text": "Scuttlebutt", "style": "normal"},
-                {"text": "beats", "style": "italic"},
-                {"text": "statistics.", "style": "italic"}
+                {
+                    "text": "The market is",
+                    "style": "normal"
+                },
+                {
+                    "text": "full of people",
+                    "style": "italic"
+                },
+                {
+                    "text": "who know the",
+                    "style": "normal"
+                },
+                {
+                    "text": "price of everything",
+                    "style": "italic"
+                },
+                {
+                    "text": "but value of nothing",
+                    "style": "normal"
+                }
             ],
             "author": "PHILIP FISHER"
         },
         {
             "content": [
-                {"text": "Circle", "style": "normal"},
-                {"text": "of competence.", "style": "italic"}
+                {
+                    "text": "The biggest risk",
+                    "style": "normal"
+                },
+                {
+                    "text": "of all is",
+                    "style": "italic"
+                },
+                {
+                    "text": "not taking one",
+                    "style": "normal"
+                }
+            ],
+            "author": "MELLODY HOBSON"
+        },
+        {
+            "content": [
+                {
+                    "text": "Time is the",
+                    "style": "normal"
+                },
+                {
+                    "text": "friend of the",
+                    "style": "italic"
+                },
+                {
+                    "text": "wonderful business the",
+                    "style": "normal"
+                },
+                {
+                    "text": "enemy of the",
+                    "style": "italic"
+                },
+                {
+                    "text": "mediocre",
+                    "style": "normal"
+                }
             ],
             "author": "WARREN BUFFETT"
-        },
-        {
-            "content": [
-                {"text": "Diversify.", "style": "normal"},
-                {"text": "Be patient.", "style": "italic"},
-                {"text": "Keep costs", "style": "italic"},
-                {"text": "low.", "style": "italic"}
-            ],
-            "author": "WALTER SCHLOSS"
-        },
-        {
-            "content": [
-                {"text": "Clone", "style": "normal"},
-                {"text": "smart investors", "style": "italic"},
-                {"text": "wisely.", "style": "italic"}
-            ],
-            "author": "GUY SPIER"
-        },
-        {
-            "content": [
-                {"text": "Opportunity", "style": "normal"},
-                {"text": "lies where", "style": "italic"},
-                {"text": "others fear.", "style": "italic"}
-            ],
-            "author": "SETH KLARMAN"
-        },
-        {
-            "content": [
-                {"text": "Buy at", "style": "normal"},
-                {"text": "maximum", "style": "italic"},
-                {"text": "pessimism.", "style": "italic"}
-            ],
-            "author": "JOHN TEMPLETON"
-        },
-        {
-            "content": [
-                {"text": "Bad news", "style": "normal"},
-                {"text": "creates", "style": "italic"},
-                {"text": "bargains.", "style": "italic"}
-            ],
-            "author": "CHRISTOPHER BROWNE"
-        },
-        {
-            "content": [
-                {"text": "Few bets,", "style": "normal"},
-                {"text": "big bets,", "style": "italic"},
-                {"text": "infrequent bets.", "style": "italic"}
-            ],
-            "author": "MONISH PABRAI"
-        },
-        {
-            "content": [
-                {"text": "Value", "style": "normal"},
-                {"text": "hides in", "style": "italic"},
-                {"text": "plain sight.", "style": "italic"}
-            ],
-            "author": "BILL MILLER"
-        },
-        {
-            "content": [
-                {"text": "Avoid", "style": "normal"},
-                {"text": "permanent", "style": "italic"},
-                {"text": "capital loss.", "style": "italic"}
-            ],
-            "author": "JEAN-MARIE EVEILLARD"
-        },
-        {
-            "content": [
-                {"text": "Patience", "style": "normal"},
-                {"text": "is the", "style": "italic"},
-                {"text": "key.", "style": "italic"}
-            ],
-            "author": "IRVING KAHN"
-        },
-        {
-            "content": [
-                {"text": "Know a", "style": "normal"},
-                {"text": "few businesses", "style": "italic"},
-                {"text": "exceptionally well.", "style": "italic"}
-            ],
-            "author": "GLENN GREENBERG"
-        },
-        {
-            "content": [
-                {"text": "Buy.", "style": "normal"},
-                {"text": "Hold.", "style": "italic"},
-                {"text": "And buy", "style": "italic"},
-                {"text": "more.", "style": "italic"}
-            ],
-            "author": "SHELBY DAVIS"
         }
     ]
 
-    
     # Create the image
-    i = 0
+    i = 30
     for quote_data in quotes_data:
         file_name = f'posts/quote_image_{i}.png'
         create_quote_image(quote_data, output_filename=file_name)
