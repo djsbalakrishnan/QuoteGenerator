@@ -1,157 +1,131 @@
-from PIL import Image, ImageDraw, ImageFont
-import json
 import os
+import cv2
+import numpy as np
+from PIL import Image, ImageDraw, ImageFont
+from moviepy.editor import ImageSequenceClip, AudioFileClip
+from typing import List, Dict
+import tempfile
 
-def create_quote_image(quote_data, width=1080, height=1350, output_filename='quote_image.png'):
-    """
-    Creates an image with a black background and centered text based on input JSON,
-    making better use of vertical space.
+# Constants
+WIDTH, HEIGHT = 1080, 1920
+FPS = 30
+FONT_SIZE = 70
+AUTHOR_FONT_SIZE = 40
+LINE_SPACING = 100  # Space between quote lines
+BOTTOM_MARGIN = 200  # Space below quote block
+
+
+def get_centered_position(draw, text, font, y):
+    bbox = draw.textbbox((0, 0), text, font=font)
+    w = bbox[2] - bbox[0]
+    return ((WIDTH - w) // 2, y)
+
+
+def split_quote_lines(quote_data: Dict):
+    lines = []
+    for part in quote_data["content"]:
+        text = part["text"]
+        style = part["style"]
+        lines.append({"text": text, "style": style})
+    return lines
+
+
+def create_typewriter_frames(quote_data: Dict, font_regular: str, font_italic: str, duration: float) -> List[np.ndarray]:
+    lines = split_quote_lines(quote_data)
+    total_chars = sum(len(line["text"]) for line in lines)
     
-    Args:
-        quote_data (dict): Dictionary containing quote content and author
-        width (int): The width of the image in pixels
-        height (int): The height of the image in pixels
-        output_filename (str): The name of the output file
+    # Calculate frames for typewriter effect and author display
+    typewriter_duration = duration  # 7 seconds for typewriter effect
+    total_duration = typewriter_duration + 3  # Add 3 extra seconds for author display
     
-    Returns:
-        None: The image is saved to disk
-    """
-    # Create a new black image with the specified dimensions
-    img = Image.new('RGB', (width, height), color='black')
-    draw = ImageDraw.Draw(img)
+    typewriter_frames = int(FPS * typewriter_duration)
+    total_frames = int(FPS * total_duration)
     
-    # Load fonts - replace these paths with your actual font file paths
-    try:
-        # Try to load custom fonts if they exist
-        regular_font_path = "fonts/PlayfairDisplay-Regular.ttf"
-        italic_font_path = "fonts/PlayfairDisplay-Italic.ttf"
-        author_font_path = "fonts/PlayfairDisplay-Regular.ttf"
-        
-        # Check if font files exist, otherwise use default
-        if not os.path.exists(regular_font_path):
-            print(f"Warning: Font file {regular_font_path} not found. Using default.")
-            regular_font_path = None
-        if not os.path.exists(italic_font_path):
-            print(f"Warning: Font file {italic_font_path} not found. Using default.")
-            italic_font_path = None
-        if not os.path.exists(author_font_path):
-            print(f"Warning: Font file {author_font_path} not found. Using default.")
-            author_font_path = None
+    # Calculate characters per frame to spread across the typewriter duration
+    char_per_frame = total_chars / typewriter_frames
+    
+    regular_font = ImageFont.truetype(font_regular, FONT_SIZE)
+    italic_font = ImageFont.truetype(font_italic, FONT_SIZE)
+    author_font = ImageFont.truetype(font_regular, AUTHOR_FONT_SIZE)
+
+    frames = []
+    current_char_count = 0
+    current_visible_chars = 0
+
+    for frame_idx in range(total_frames):
+        img = Image.new("RGB", (WIDTH, HEIGHT), color="black")
+        draw = ImageDraw.Draw(img)
+
+        y = (HEIGHT - (len(lines) * LINE_SPACING + BOTTOM_MARGIN)) // 2
+        char_count_tracker = 0
+
+        # Only update character count if we're still in the typewriter phase
+        if frame_idx < typewriter_frames:
+            current_char_count += char_per_frame
+            current_visible_chars = min(int(current_char_count), total_chars)  # Cap at total chars
+        else:
+            current_visible_chars = total_chars  # Show all text after typewriter phase
+
+        # Draw the quote text
+        for line in lines:
+            text = line["text"]
+            style = line["style"]
+            font = italic_font if style == "italic" else regular_font
+
+            if char_count_tracker + len(text) <= current_visible_chars:
+                draw.text(get_centered_position(draw, text, font, y), text, font=font, fill="white")
+                char_count_tracker += len(text)
+            else:
+                visible_chars = max(0, current_visible_chars - char_count_tracker)
+                partial_text = text[:visible_chars]
+                draw.text(get_centered_position(draw, partial_text, font, y), partial_text, font=font, fill="white")
+                char_count_tracker += visible_chars
+                break
+
+            y += LINE_SPACING
+
+        # Add divider and author ONLY after typewriter effect is complete
+        if frame_idx >= typewriter_frames:
+            # Calculate y position after the last line of text
+            final_y = (HEIGHT - (len(lines) * LINE_SPACING + BOTTOM_MARGIN)) // 2 + len(lines) * LINE_SPACING
             
-    except Exception as e:
-        print(f"Error loading fonts: {e}")
-        regular_font_path = None
-        italic_font_path = None
-        author_font_path = None
-    
-    # Set up font sizes
-    main_text_size = 70  # Increased font size
-    author_text_size = 26
-    
-    # Create font objects
-    regular_font = ImageFont.truetype(regular_font_path, main_text_size) if regular_font_path else ImageFont.load_default()
-    italic_font = ImageFont.truetype(italic_font_path, main_text_size) if italic_font_path else ImageFont.load_default()
-    author_font = ImageFont.truetype(author_font_path, author_text_size) if author_font_path else ImageFont.load_default()
-    
-    content = quote_data.get('content', [])
-    
-    # ----------------
-    # IMPROVED SPACING CALCULATIONS
-    # ----------------
-    
-    # Calculate total available vertical space and distribute it better
-    usable_height = height * 0.8  # Use 80% of image height for better spacing
-    
-    # Define spacing ratios for better distribution
-    top_margin_ratio = 0.2    # Space at the top (20% of usable height)
-    quote_section_ratio = 0.5  # Quote takes 50% of usable height
-    bottom_section_ratio = 0.3 # Bottom section (line + author) takes 30% of usable height
-    
-    # Calculate actual spaces based on ratios
-    top_margin = usable_height * top_margin_ratio
-    quote_section_height = usable_height * quote_section_ratio
-    bottom_section_height = usable_height * bottom_section_ratio
-    
-    # Line heights and inter-line spacing
-    line_heights = []
-    line_spacing = main_text_size * 0.7  # Increased spacing between lines
-    
-    # Calculate height of all text elements
-    quote_text_height = 0
-    for item in content:
-        font = italic_font if item['style'] == 'italic' else regular_font
-        text = item['text']
-        bbox = draw.textbbox((0, 0), text, font=font)
-        line_height = bbox[3] - bbox[1]
-        line_heights.append(line_height)
-        quote_text_height += line_height
-    
-    # Add spacing between lines
-    total_quote_height = quote_text_height + (len(content) - 1) * line_spacing
-    
-    # Horizontal line and author settings
-    horizontal_line_thickness = 3  # Slightly thicker line
-    line_length = 120  # Length of the horizontal line
-    
-    # Get author text height
-    author_text = quote_data.get('author', '')
-    author_bbox = draw.textbbox((0, 0), author_text.upper(), font=author_font)
-    author_height = author_bbox[3] - author_bbox[1]
-    
-    # Calculate starting position
-    start_y = top_margin
-    
-    # Calculate even distribution within quote section
-    if len(content) > 1:
-        # Distribute lines evenly in the quote section
-        quote_start_y = start_y + (quote_section_height - total_quote_height) / 2
-    else:
-        quote_start_y = start_y
-    
-    current_y = quote_start_y
-    
-    # Draw each line of the quote
-    for i, item in enumerate(content):
-        text = item['text']
-        font = italic_font if item['style'] == 'italic' else regular_font
-        text_width = draw.textlength(text, font=font)
-        text_x = (width - text_width) // 2  # Center text horizontally
-        
-        # Draw the text
-        draw.text((text_x, current_y), text, fill='white', font=font)
-        
-        # Move to next line position
-        current_y += line_heights[i] + line_spacing
-    
-    # Position the horizontal line and author in the bottom section
-    bottom_section_start = start_y + quote_section_height
-    line_to_author_spacing = 40  # Space between line and author
-    
-    # Calculate positions for line and author
-    line_y = bottom_section_start + (bottom_section_height - line_to_author_spacing - author_height) / 2
-    line_start_x = (width - line_length) // 2
-    line_end_x = line_start_x + line_length
-    
-    # Draw horizontal line
-    draw.line([(line_start_x, line_y), (line_end_x, line_y)], fill='white', width=horizontal_line_thickness)
-    
-    # Draw author name in uppercase below the line
-    author_text = quote_data.get('author', '').upper()
-    author_width = draw.textlength(author_text, font=author_font)
-    author_x = (width - author_width) // 2
-    author_y = line_y + line_to_author_spacing
-    
-    draw.text((author_x, author_y), author_text, fill='white', font=author_font)
-    
-    # Save the image
-    img.save(output_filename)
-    print(f"Created quote image with better spacing as '{output_filename}'")
-    return img
+            divider_y = final_y + 40
+            author_y = divider_y + 30
+
+            divider_width = 100
+            draw.line(((WIDTH - divider_width) // 2, divider_y,
+                      (WIDTH + divider_width) // 2, divider_y),
+                      fill="white", width=2)
+
+            author_text = quote_data.get("author", "").upper()
+            bbox = draw.textbbox((0, 0), author_text, font=author_font)
+            w_author = bbox[2] - bbox[0]
+            draw.text(((WIDTH - w_author) // 2, author_y), author_text, font=author_font, fill="white")
+
+        frame_np = np.array(img)
+        frame_cv = cv2.cvtColor(frame_np, cv2.COLOR_RGB2BGR)
+        frames.append(frame_cv)
+
+    return frames
+
+
+def generate_quote_video(quote_data: Dict, font_regular: str, font_italic: str,
+                         audio_path: str, output_path: str):
+    # Set fixed duration to 7 seconds for the typewriter effect
+    duration = 7.0
+
+    frames = create_typewriter_frames(quote_data, font_regular, font_italic, duration)
+
+    with tempfile.TemporaryDirectory() as tmpdir:
+        clip = ImageSequenceClip(frames, fps=FPS)
+        if audio_path:
+            audio = AudioFileClip(audio_path).subclip(0, clip.duration)
+            clip = clip.set_audio(audio)
+        clip.write_videofile(output_path, codec="libx264", audio_codec="aac")
 
 
 # Example usage
 if __name__ == "__main__":
-    # Sample input data
     quotes_data = [
         {
             "content": [
@@ -970,9 +944,12 @@ if __name__ == "__main__":
         }
     ]
 
-    # Create the image
-    i = 30
-    for quote_data in quotes_data:
-        file_name = f'posts/quote_image_{i}.png'
-        create_quote_image(quote_data, output_filename=file_name)
+    font_regular = "fonts/PlayfairDisplay-Regular.ttf"   # Path to your regular TTF font
+    font_italic = "fonts/PlayfairDisplay-Italic.ttf"     # Path to your italic TTF font
+    audio_path = "audio/rain.mp3"                        # Optional: set to None if no audio
+
+    i = 56
+    for quote_data in quotes_data[56:]:
+        output_path = f"video_posts/quote_video_{i}.mp4"
+        generate_quote_video(quote_data, font_regular, font_italic, audio_path, output_path)
         i += 1
